@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.alarmclock.activity.WakeUpActivity;
 import com.example.alarmclock.listcomponent.ListItem;
+import com.example.alarmclock.util.DatabaseHelper;
 import com.example.alarmclock.util.Util;
 
 import java.io.BufferedReader;
@@ -27,10 +28,15 @@ public class AlarmReceiver extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onReceive(Context context, Intent intent) {
+        //次の日の同じ時間にアラームを設定
+        String requestCode = intent.getData().toString();
+        DatabaseHelper helper = DatabaseHelper.getInstance(context);
+        ListItem item = Util.getAlarmsByID(Integer.parseInt(requestCode), helper);
+
+        // アラームを設定
+        Util.setAlarm(context, item);
         //動いているかのflagを取得
         String flag = readFile(context, fileName);
-        Intent startActivityIntent = new Intent(context, WakeUpActivity.class);
-        startActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         //動いていない場合
         if (Integer.parseInt(flag) == 0) {
@@ -52,6 +58,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             Util.setAlarm(context, listItem);
 
             //アラームを鳴らす
+            Intent startActivityIntent = new Intent(context, WakeUpActivity.class);
+            startActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(startActivityIntent);
         }
     }
