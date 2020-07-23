@@ -1,3 +1,7 @@
+//動いていないと判定された場合の画面
+//本体のアラームを鳴らし、GoogleHomeに対してのリクエストを行う
+//加速度センサーを用いて動いているかを判定し、フラグファイルの編集を行う
+
 package com.example.alarmclock.activity;
 
 import android.content.Context;

@@ -1,3 +1,5 @@
+//初期画面 アラームのリストを表示し、追加画面や既存のアラーム編集画面に遷移
+
 package com.example.alarmclock.activity;
 
 import android.content.Context;
@@ -105,10 +107,8 @@ public class ConfirmationActivity extends AppCompatActivity {
 
     //スヌーズを判定するテキストファイルを保存
     public void saveFile(String file, String str) {
-        // try-with-resources
         try (FileOutputStream fileOutputstream = openFileOutput(file,
                 Context.MODE_PRIVATE)) {
-
             fileOutputstream.write(str.getBytes());
 
         } catch (IOException e) {

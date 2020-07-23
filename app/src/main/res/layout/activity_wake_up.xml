@@ -26,26 +26,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarWakeUp" />
 
+    <!---->
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="8dp"
         android:text="加速度センサーのデータ"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="7dp" />
+        app:layout_constraintTop_toBottomOf="@+id/stopBtn"
+        tools:layout_editor_absoluteX="6dp" />
 
     <TextView
         android:id="@+id/st"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
         android:text="Stable  :"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <!---->
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
         android:id="@+id/stable"
@@ -77,7 +76,7 @@
     <WebView
         android:id="@+id/WeatherWebView"
         android:layout_width="395dp"
-        android:layout_height="581dp"
+        android:layout_height="576dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -86,7 +85,28 @@
             android:id="@+id/GoogleHomeWebView"
             android:layout_width="415dp"
             android:layout_height="45dp"
-            android:layout_marginTop="120dp" />
+            android:layout_marginTop="120dp"
+            android:layout_x="11dp"
+            android:layout_y="0dp" />
     </WebView>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="1分間この画面を表示したままにしてください。"
+        android:textColor="#D52F2F"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="1分後にActiveが10%を超ていると、スヌーズになりません。"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

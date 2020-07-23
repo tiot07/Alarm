@@ -1,5 +1,6 @@
-package com.example.alarmclock.receiver;
+//アラーム設定時刻に起動し、動いていない場合は次のアラームを設定したのちアラーム画面に遷移
 
+package com.example.alarmclock.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

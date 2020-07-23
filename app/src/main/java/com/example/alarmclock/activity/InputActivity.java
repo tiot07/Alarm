@@ -1,3 +1,5 @@
+//アラーム設定画面
+
 package com.example.alarmclock.activity;
 
 import android.app.AlarmManager;
