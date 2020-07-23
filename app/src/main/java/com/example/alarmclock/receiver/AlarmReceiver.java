@@ -29,12 +29,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         //次の日の同じ時間にアラームを設定
-        String requestCode = intent.getData().toString();
-        DatabaseHelper helper = DatabaseHelper.getInstance(context);
-        ListItem item = Util.getAlarmsByID(Integer.parseInt(requestCode), helper);
+//        String requestCode = intent.getData().toString();
+//        DatabaseHelper helper = DatabaseHelper.getInstance(context);
+//        ListItem item = Util.getAlarmsByID(Integer.parseInt(requestCode), helper);
 
         // アラームを設定
-        Util.setAlarm(context, item);
+//        Util.setAlarm(context, item);
         //動いているかのflagを取得
         String flag = readFile(context, fileName);
 
