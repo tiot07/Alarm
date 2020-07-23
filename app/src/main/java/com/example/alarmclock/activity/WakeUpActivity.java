@@ -12,9 +12,8 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,22 +35,15 @@ public class WakeUpActivity extends AppCompatActivity implements SensorEventList
     float active = 0;
     float stable = 0;
     float total = 0;
-    int flag = 0;
-    String text = "0";
+    String flag = "0";
     SensorManager manager;
     Sensor sensor;
     TextView stableTextView;
     TextView activeTextView;
-    TextView xTextView;
-    TextView yTextView;
-    TextView zTextView;
     WebView myWebView;
     WebView myWebView2;
     Button stopBtn;
-    private String fileName = "test.txt";
-    private EditText editAlarmName = null;
-    private TimePicker timePicker = null;
-    private int reqCode = -1;
+    private String fileName = "flag.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,18 +96,16 @@ public class WakeUpActivity extends AppCompatActivity implements SensorEventList
         }
         total += 1;
         if ((int) ((active / total) * 100) >= 10) {
-            text = "1";
+            flag = "1";
         } else {
-            text = "0";
+            flag = "0";
         }
-        saveFile(fileName, text);
+        saveFile(fileName, flag);
         activeTextView.setText((int) ((active / total) * 100) + "%");
         stableTextView.setText((int) ((stable / total) * 100) + "%");
         xhis = xval;
         yhis = yval;
         zhis = zval;
-
-
     }
 
     @Override
@@ -137,7 +127,6 @@ public class WakeUpActivity extends AppCompatActivity implements SensorEventList
 
     public void saveFile(String file, String str) {
 
-        // try-with-resources
         try (FileOutputStream fileOutputstream = openFileOutput(file,
                 Context.MODE_PRIVATE)) {
 

@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,33 +25,16 @@ import java.util.ArrayList;
 public class ConfirmationActivity extends AppCompatActivity {
     final static public int NEW_REQ_CODE = 1;
     final static public int EDIT_REQ_CODE = 2;
-    UtilCommon common = (UtilCommon) getApplication();
-    float xhis = 0;
-    float yhis = 0;
-    float zhis = 0;
-    float xval = 0;
-    float yval = 0;
-    float zval = 0;
-    float active = 0;
-    float stable = 0;
-    float total = 0;
-    int flag = 0;
     RecyclerView rv = null;
     RecyclerView.Adapter adapter = null;
-    String text = "0";
-    TextView stableTextView;
-    TextView activeTextView;
-    TextView xTextView;
-    TextView yTextView;
-    TextView zTextView;
     private DatabaseHelper helper = null;
-    private String fileName = "test.txt";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirmation_main);
-        saveFile(fileName, text);
+        saveFile("flag.txt", "0");
         // アラームのデータを取得
         ArrayList<ListItem> data = this.loadAlarms();
 
@@ -70,10 +52,6 @@ public class ConfirmationActivity extends AppCompatActivity {
                         startActivityForResult(i, NEW_REQ_CODE);
                     }
                 });
-
-
-        stableTextView = findViewById(R.id.stable);
-        activeTextView = findViewById(R.id.active);
     }
 
     @Override
@@ -90,11 +68,8 @@ public class ConfirmationActivity extends AppCompatActivity {
 
     private ArrayList<ListItem> loadAlarms() {
         helper = DatabaseHelper.getInstance(this);
-
         ArrayList<ListItem> data = new ArrayList<>();
-
         try (SQLiteDatabase db = helper.getReadableDatabase()) {
-
             String[] cols = {"alarmid", "name", "alarttime"};
 
             Cursor cs = db.query("alarms", cols, null, null,
@@ -128,9 +103,8 @@ public class ConfirmationActivity extends AppCompatActivity {
 
     }
 
-
+    //スヌーズを判定するテキストファイルを保存
     public void saveFile(String file, String str) {
-
         // try-with-resources
         try (FileOutputStream fileOutputstream = openFileOutput(file,
                 Context.MODE_PRIVATE)) {
