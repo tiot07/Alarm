@@ -26,6 +26,7 @@ import java.io.IOException;
 
 
 public class WakeUpActivity extends AppCompatActivity implements SensorEventListener {
+    //加速度センサー
     float xhis = 0;
     float yhis = 0;
     float zhis = 0;
@@ -35,13 +36,14 @@ public class WakeUpActivity extends AppCompatActivity implements SensorEventList
     float active = 0;
     float stable = 0;
     float total = 0;
+
     String flag = "0";
     SensorManager manager;
     Sensor sensor;
     TextView stableTextView;
     TextView activeTextView;
-    WebView myWebView;
-    WebView myWebView2;
+    WebView GoogleHomeWebView;
+    WebView WeatherWebView;
     Button stopBtn;
     private String fileName = "flag.txt";
 
@@ -62,16 +64,19 @@ public class WakeUpActivity extends AppCompatActivity implements SensorEventList
         sensor = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         startService(new Intent(this, SoundService.class));
-        //web
-        myWebView = findViewById(R.id.webview);
-        myWebView2 = findViewById(R.id.webview2);
 
-        myWebView.getSettings().setJavaScriptEnabled(true);
-        myWebView.loadUrl("http://192.168.2.158:8091/google-home-notifier?text=テスト");
-        myWebView.setWebViewClient(new MyWebViewClient());
-        myWebView2.getSettings().setJavaScriptEnabled(true);
-        myWebView2.loadUrl("https://weathernews.jp/onebox/");
-        myWebView2.setWebViewClient(new MyWebViewClient());
+
+        //GoogleHomeへHTTP通信
+        GoogleHomeWebView = findViewById(R.id.GoogleHomeWebView);
+        GoogleHomeWebView.getSettings().setJavaScriptEnabled(true);
+        GoogleHomeWebView.loadUrl("http://192.168.2.158:8091/google-home-notifier?text=テスト");
+        GoogleHomeWebView.setWebViewClient(new MyWebViewClient());
+
+        //天気予報画面
+        WeatherWebView = findViewById(R.id.WeatherWebView);
+        WeatherWebView.getSettings().setJavaScriptEnabled(true);
+        WeatherWebView.loadUrl("https://weathernews.jp/onebox/");
+        WeatherWebView.setWebViewClient(new MyWebViewClient());
         //
 
         stopBtn = findViewById(R.id.stopBtn);
@@ -85,7 +90,7 @@ public class WakeUpActivity extends AppCompatActivity implements SensorEventList
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-
+        //加速度を用いて動いているかを判定
         xval = event.values[0];
         yval = event.values[1];
         zval = event.values[2];
@@ -100,12 +105,15 @@ public class WakeUpActivity extends AppCompatActivity implements SensorEventList
         } else {
             flag = "0";
         }
-        saveFile(fileName, flag);
+
         activeTextView.setText((int) ((active / total) * 100) + "%");
         stableTextView.setText((int) ((stable / total) * 100) + "%");
         xhis = xval;
         yhis = yval;
         zhis = zval;
+
+        //スヌーズを鳴らすかどうかのフラッグ保存
+        saveFile(fileName, flag);
     }
 
     @Override

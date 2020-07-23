@@ -75,7 +75,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView14" />
 
     <WebView
-        android:id="@+id/webview2"
+        android:id="@+id/WeatherWebView"
         android:layout_width="395dp"
         android:layout_height="581dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +83,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <WebView
-            android:id="@+id/webview"
+            android:id="@+id/GoogleHomeWebView"
             android:layout_width="415dp"
             android:layout_height="45dp"
             android:layout_marginTop="120dp" />

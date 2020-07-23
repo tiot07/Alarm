@@ -31,6 +31,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent startActivityIntent = new Intent(context, WakeUpActivity.class);
         startActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        //動いていない場合
         if (Integer.parseInt(flag) == 0) {
             //時刻を取得
             LocalDateTime date1 = LocalDateTime.now();
@@ -42,12 +43,14 @@ public class AlarmReceiver extends BroadcastReceiver {
             String alarmTime = hour + ":"
                     + String.format("%02d", minutes + 1);
 
-            //1分後のアラームをセット
+            //1分後のアラーム(スヌーズ)をセット
             ListItem listItem = new ListItem();
             listItem.setAlarmID(minutes + 1);
             listItem.setAlarmName("無題");
             listItem.setTime(alarmTime);
             Util.setAlarm(context, listItem);
+
+            //アラームを鳴らす
             context.startActivity(startActivityIntent);
         }
     }
